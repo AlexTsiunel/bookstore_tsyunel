@@ -1,11 +1,11 @@
 CREATE DATABASE "bookstore";
 CREATE TABLE books (
-	book_id SERIAL PRIMARY KEY,
-	title text NOT NULL,
-	author text NOT NULL,
-	isbn text NOT NULL,
-	pages smallint,
-	price decimal 
+	book_id BIGSERIAL PRIMARY KEY,
+	title TEXT NOT NULL,
+	author TEXT NOT NULL,
+	isbn TEXT UNIQUE NOT NULL,
+	pages SMALLINT,
+	price DECIMAL 
 );
 
 INSERT INTO books (book_id, title, author, isbn, pages, price)
