@@ -1,9 +1,9 @@
-package com.company.entity;
+package com.company.dao.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class BookEntity {
+public class Book {
 	private Long id;
 	private String title;
 	private String author;
@@ -75,7 +75,7 @@ public class BookEntity {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		BookEntity other = (BookEntity) obj;
+		Book other = (Book) obj;
 		return Objects.equals(author, other.author) && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
 				&& Objects.equals(pages, other.pages) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);

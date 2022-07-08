@@ -1,7 +1,5 @@
 package com.company;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -10,9 +8,22 @@ import com.company.console.BookConsole;
 public class App {
 
 	public static void main(String[] args) throws SQLException {
+//		try (DataSource dataSource = new DataSource()) {
+//			BookDaoImpl bookDao = new BookDaoImpl(dataSource);
+//
+//			bookDao.getAll().forEach(System.out::println);
+//			System.out.println("------------------------");
+//			System.out.println(bookDao.getNumberOfBooks());
+//			System.out.println("------------------------");
+//			bookDao.getBooksByAuthor("Taylor Jenkins Reid").forEach(System.out::println);
+//			System.out.println("------------------------");
+//			System.out.println(bookDao.getBookByIsbn("9781538732182"));
+//
+//		} catch (Exception e) {
+//			e.getStackTrace();
+//		}
 
-		try (Connection connection = DriverManager.getConnection(Properties.getUrl(), Properties.getUser(),
-				Properties.getPassword());) {
+		try (DataSource dataSource = new DataSource()) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Please use commands:\n" //
 					+ "  'all' - to get a list of all books in the repository;\n"//
@@ -21,10 +32,9 @@ public class App {
 					+ "  'exit' - to exit from application; ");
 			while (true) {
 				String command = BookConsole.getValidCommand(scanner);
-				System.out.println("Ñommand execution result:");
-				BookConsole.executeCommand(command, connection);
+				System.out.println("Command execution result:");
+				BookConsole.executeCommand(command, dataSource);
 			}
-
 		}
 	}
 }

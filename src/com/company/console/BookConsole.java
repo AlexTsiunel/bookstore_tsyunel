@@ -1,16 +1,16 @@
 package com.company.console;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
+import com.company.DataSource;
 import com.company.dao.BookDao;
 import com.company.dao.BookDaoImpl;
 
 public class BookConsole {
 	private static final String REGEX_VALID_COMMAND = "(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
 
-	public static void executeCommand(String command, Connection connection) {
-		BookDao bookDao = new BookDaoImpl(connection);
+	public static void executeCommand(String command, DataSource dataSource) {
+		BookDao bookDao = new BookDaoImpl(dataSource);
 		String[] method = command.split(" ");
 		String methodName = method[0];
 		Integer methodArgument = null;

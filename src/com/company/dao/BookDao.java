@@ -2,17 +2,17 @@ package com.company.dao;
 
 import java.util.List;
 
-import com.company.entity.BookEntity;
+import com.company.dao.entity.Book;
 
 public interface BookDao {
 
-	BookEntity getById(long id);
+	Book getById(long id);
 
-	List<BookEntity> getAll();
+	List<Book> getAll();
 
-	BookEntity create(BookEntity book);
+	Book create(Book book);
 
-	BookEntity update(BookEntity book);
+	Book update(Book book);
 
 	boolean delete(long id);
 
