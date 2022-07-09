@@ -27,13 +27,16 @@ public class App {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Please use commands:\n" //
 					+ "  'all' - to get a list of all books in the repository;\n"//
-					+ "  'get {id} - to get book from repository by id;\n"//
-					+ "  'delete {id} - to remove book from repository by id;\n"//
+					+ "  'get {id}' - to get book from repository by id;\n"//
+					+ "  'delete {id}' - to remove book from repository by id;\n"//
+					+ "  'add' - to create a book in the repository;\n"//
+					+ "  'update' - to update a book in the repository;\n"//
 					+ "  'exit' - to exit from application; ");
 			while (true) {
-				String command = BookConsole.getValidCommand(scanner);
+				BookConsole bookConsole = new BookConsole(dataSource);
+				String command = bookConsole.getValidCommand(scanner);
 				System.out.println("Command execution result:");
-				BookConsole.executeCommand(command, dataSource);
+				bookConsole.executeCommand(command, scanner);
 			}
 		}
 	}
