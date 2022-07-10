@@ -4,27 +4,32 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
-import com.company.dao.connection.DataSource;
-import com.company.dao.impl.BookDaoImpl;
 import com.company.service.BookService;
 import com.company.service.dto.BookDto;
-import com.company.service.impl.BookServiceImpl;
 
 public class BookController {
 	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
-	private DataSource dataSource;
 	private Scanner scanner;
+	private BookService bookService;
+	{
+		System.out.println("Please use commands:\n" //
+				+ "  'all' - to get a list of all books in the repository;\n"//
+				+ "  'get {id}' - to get book from repository by id;\n"//
+				+ "  'delete {id}' - to remove book from repository by id;\n"//
+				+ "  'add' - to create a book in the repository;\n"//
+				+ "  'update' - to update a book in the repository;\n"//
+				+ "  'count' - get the number of books in the repository;\n"//
+				+ "  'author' - to get book from repository by author;\n"//
+				+ "  'isbn' - to get book from repository by i;\n"//
+				+ "  'exit' - to exit from application; ");
+	}
 
-	public BookController(DataSource dataSource, Scanner scanner) {
-		this.dataSource = dataSource;
+	public BookController(Scanner scanner, BookService bookService) {
 		this.scanner = scanner;
+		this.bookService = bookService;
 	}
 
 	public void executeCommand(String command) {
-		//BookService создать из вне, что бы небыло тесной связанности;
-		//BookService - сделать полем класса BookController;
-		BookService bookService = new BookServiceImpl(new BookDaoImpl(dataSource));
-//		BookDaoImpl bookService = new BookDaoImpl(dataSource);
 		String[] method = command.split(" ");
 		String methodName = method[0];
 		Integer methodArgument = null;
@@ -134,7 +139,6 @@ public class BookController {
 	private void update(Scanner scanner, BookService bookService) {
 		System.out.print("Please enter a book id for update: ");
 		Long id = scanner.nextLong();
-		scanner.next();
 		BookDto bookUpdate = bookService.getById(id);
 		if (bookUpdate == null) {
 			System.out.printf("Book with id %d does not exist in the database!!!", id);

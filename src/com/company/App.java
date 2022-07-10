@@ -4,24 +4,18 @@ import java.util.Scanner;
 
 import com.company.controller.BookController;
 import com.company.dao.connection.DataSource;
+import com.company.dao.impl.BookDaoImpl;
+import com.company.service.BookService;
+import com.company.service.impl.BookServiceImpl;
 
 public class App {
 
 	public static void main(String[] args) {
 		try (DataSource dataSource = new DataSource()) {
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("Please use commands:\n" //
-					+ "  'all' - to get a list of all books in the repository;\n"//
-					+ "  'get {id}' - to get book from repository by id;\n"//
-					+ "  'delete {id}' - to remove book from repository by id;\n"//
-					+ "  'add' - to create a book in the repository;\n"//
-					+ "  'update' - to update a book in the repository;\n"//
-					+ "  'count' - get the number of books in the repository;\n"//
-					+ "  'author' - to get book from repository by author;\n"//
-					+ "  'isbn' - to get book from repository by i;\n"//
-					+ "  'exit' - to exit from application; ");
+			BookService bookService = new BookServiceImpl(new BookDaoImpl(dataSource));
 			while (true) {
-				BookController bookController = new BookController(dataSource, scanner);
+				BookController bookController = new BookController(scanner, bookService);
 				String command = bookController.getValidCommand(scanner);
 				System.out.println("Command execution result:");
 				bookController.executeCommand(command);
