@@ -1,24 +1,29 @@
-package com.company.console;
+package com.company.controller;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Scanner;
 
-import com.company.DataSource;
-import com.company.dao.BookDao;
-import com.company.dao.BookDaoImpl;
-import com.company.dao.entity.Book;
+import com.company.dao.connection.DataSource;
+import com.company.dao.impl.BookDaoImpl;
+import com.company.service.BookService;
+import com.company.service.dto.BookDto;
+import com.company.service.impl.BookServiceImpl;
 
-public class BookConsole {
+public class BookController {
 	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
 	private DataSource dataSource;
+	private Scanner scanner;
 
-	public BookConsole(DataSource dataSource) {
+	public BookController(DataSource dataSource, Scanner scanner) {
 		this.dataSource = dataSource;
+		this.scanner = scanner;
 	}
 
-	public void executeCommand(String command, Scanner scanner) {
-		BookDaoImpl bookDao = new BookDaoImpl(dataSource);
+	public void executeCommand(String command) {
+		//BookService создать из вне, что бы небыло тесной связанности;
+		//BookService - сделать полем класса BookController;
+		BookService bookService = new BookServiceImpl(new BookDaoImpl(dataSource));
+//		BookDaoImpl bookService = new BookDaoImpl(dataSource);
 		String[] method = command.split(" ");
 		String methodName = method[0];
 		Integer methodArgument = null;
@@ -27,51 +32,51 @@ public class BookConsole {
 		}
 		switch (methodName) {
 		case "all": {
-			bookDao.getAll().forEach(System.out::println);
+			bookService.getAll().forEach(System.out::println);
 			break;
 		}
 		case "get": {
-			System.out.println(bookDao.getById(methodArgument));
+			System.out.println(bookService.getById(methodArgument));
 			break;
 		}
 		case "delete": {
-			System.out.println(bookDao.delete(methodArgument));
+			System.out.println(bookService.delete(methodArgument));
 			break;
 		}
 		case "add": {
-			create(scanner, bookDao);
+			create(scanner, bookService);
 			break;
 		}
 		case "update": {
-			update(scanner, bookDao);
+			update(scanner, bookService);
 			break;
 		}
 		case "count": {
-			System.out.printf("The repository contains %d books.\n", bookDao.getNumberOfBooks());
+//			System.out.printf("The repository contains %d books.\n", bookService.getNumberOfBooks());
 			break;
 		}
 		case "author": {
-			System.out.print("Please enter the author of book: ");
-			String author = scanner.nextLine();
-			List<Book> books = bookDao.getBooksByAuthor(author);
-			if (books.size() == 0) {
-				System.out.printf("'%s' author's books are not in the repository.\n", author);
-				break;
-			}
-			for (Book book : books) {
-				System.out.println(book.toString());
-			}
+//			System.out.print("Please enter the author of book: ");
+//			String author = scanner.nextLine();
+//			List<Book> books = bookService.getBooksByAuthor(author);
+//			if (books.size() == 0) {
+//				System.out.printf("'%s' author's books are not in the repository.\n", author);
+//				break;
+//			}
+//			for (Book book : books) {
+//				System.out.println(book.toString());
+//			}
 			break;
 		}
 		case "isbn": {
-			System.out.print("Please enter the isbn of book: ");
-			String isbn = scanner.nextLine();
-			Book book = bookDao.getBookByIsbn(isbn);
-			if (book == null) {
-				System.out.printf("Book with isbn '%s' are not in the repository.\n", isbn);
-				break;
-			}
-			System.out.println(book.toString());
+//			System.out.print("Please enter the isbn of book: ");
+//			String isbn = scanner.nextLine();
+//			Book book = bookService.getBookByIsbn(isbn);
+//			if (book == null) {
+//				System.out.printf("Book with isbn '%s' are not in the repository.\n", isbn);
+//				break;
+//			}
+//			System.out.println(book.toString());
 			break;
 		}
 		case "exit": {
@@ -97,8 +102,8 @@ public class BookConsole {
 		return command.matches(REGEX_VALID_COMMAND);
 	}
 
-	private void create(Scanner scanner, BookDao bookDao) {
-		Book book = new Book();
+	private void create(Scanner scanner, BookService bookService) {
+		BookDto book = new BookDto();
 
 		System.out.print("Please enter a book title: ");
 		String titel = scanner.nextLine();
@@ -122,14 +127,14 @@ public class BookConsole {
 		BigDecimal price = BigDecimal.valueOf(scanner.nextDouble());
 		book.setPrice(price);
 
-		bookDao.create(book);
+		bookService.create(book);
 	}
 
-	private void update(Scanner scanner, BookDao bookDao) {
+	private void update(Scanner scanner, BookService bookService) {
 		System.out.print("Please enter a book id for update: ");
 		Long id = scanner.nextLong();
 		scanner.next();
-		Book bookUpdate = bookDao.getById(id);
+		BookDto bookUpdate = bookService.getById(id);
 		if (bookUpdate == null) {
 			System.out.printf("Book with id %d does not exist in the database!!!", id);
 			return;
@@ -171,7 +176,7 @@ public class BookConsole {
 			bookUpdate.setPrice(price);
 		}
 
-		bookDao.update(bookUpdate);
+		bookService.update(bookUpdate);
 	}
 
 	private boolean isUpdate(Scanner scanner) {

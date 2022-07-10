@@ -1,4 +1,4 @@
-package com.company;
+package com.company.dao.connection;
 
 import java.io.Closeable;
 import java.sql.Connection;

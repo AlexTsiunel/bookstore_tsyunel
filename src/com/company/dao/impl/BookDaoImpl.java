@@ -1,4 +1,4 @@
-package com.company.dao;
+package com.company.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.company.DataSource;
+import com.company.dao.BookDao;
+import com.company.dao.connection.DataSource;
 import com.company.dao.entity.Book;
 
 public class BookDaoImpl implements BookDao {
@@ -33,7 +34,7 @@ public class BookDaoImpl implements BookDao {
 			statement.setLong(1, id);
 			ResultSet result = statement.executeQuery();
 			if (result.next()) {
-				return getBookEntity(result);
+				return getBook(result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,7 +49,7 @@ public class BookDaoImpl implements BookDao {
 			Statement statement = dataSource.getConnection().createStatement();
 			ResultSet result = statement.executeQuery(SELECT_ALL);
 			while (result.next()) {
-				list.add(getBookEntity(result));
+				list.add(getBook(result));
 			}
 			return list;
 		} catch (SQLException e) {
@@ -121,7 +122,7 @@ public class BookDaoImpl implements BookDao {
 			statement.setString(1, isbn);
 			ResultSet result = statement.executeQuery();
 			if (result.next()) {
-				return getBookEntity(result);
+				return getBook(result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,7 +137,7 @@ public class BookDaoImpl implements BookDao {
 			statement.setString(1, author);
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
-				booksList.add(getBookEntity(result));
+				booksList.add(getBook(result));
 			}
 			return booksList;
 		} catch (SQLException e) {
@@ -159,14 +160,14 @@ public class BookDaoImpl implements BookDao {
 		return numberOfBooks;
 	}
 
-	private Book getBookEntity(ResultSet result) throws SQLException {
-		Book bookEntity = new Book();
-		bookEntity.setId(result.getLong(1));
-		bookEntity.setTitle(result.getString(2));
-		bookEntity.setAuthor(result.getString(3));
-		bookEntity.setIsbn(result.getString(4));
-		bookEntity.setPages(result.getInt(5));
-		bookEntity.setPrice(result.getBigDecimal(6));
-		return bookEntity;
+	private Book getBook(ResultSet result) throws SQLException {
+		Book book = new Book();
+		book.setId(result.getLong(1));
+		book.setTitle(result.getString(2));
+		book.setAuthor(result.getString(3));
+		book.setIsbn(result.getString(4));
+		book.setPages(result.getInt(5));
+		book.setPrice(result.getBigDecimal(6));
+		return book;
 	}
 }

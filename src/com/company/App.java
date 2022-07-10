@@ -2,7 +2,8 @@ package com.company;
 
 import java.util.Scanner;
 
-import com.company.console.BookConsole;
+import com.company.controller.BookController;
+import com.company.dao.connection.DataSource;
 
 public class App {
 
@@ -32,13 +33,13 @@ public class App {
 					+ "  'update' - to update a book in the repository;\n"//
 					+ "  'count' - get the number of books in the repository;\n"//
 					+ "  'author' - to get book from repository by author;\n"//
-					+ "  'isbn' - to get book from repository by isbn;\n"//
+					+ "  'isbn' - to get book from repository by i;\n"//
 					+ "  'exit' - to exit from application; ");
 			while (true) {
-				BookConsole bookConsole = new BookConsole(dataSource);
-				String command = bookConsole.getValidCommand(scanner);
+				BookController bookController = new BookController(dataSource, scanner);
+				String command = bookController.getValidCommand(scanner);
 				System.out.println("Command execution result:");
-				bookConsole.executeCommand(command, scanner);
+				bookController.executeCommand(command);
 			}
 		}
 	}
