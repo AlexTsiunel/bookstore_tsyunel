@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 import com.company.dao.connection.DataSource;
@@ -52,31 +53,31 @@ public class BookController {
 			break;
 		}
 		case "count": {
-//			System.out.printf("The repository contains %d books.\n", bookService.getNumberOfBooks());
+			System.out.printf("The repository contains %d books.\n", bookService.getNumberOfBooks());
 			break;
 		}
 		case "author": {
-//			System.out.print("Please enter the author of book: ");
-//			String author = scanner.nextLine();
-//			List<Book> books = bookService.getBooksByAuthor(author);
-//			if (books.size() == 0) {
-//				System.out.printf("'%s' author's books are not in the repository.\n", author);
-//				break;
-//			}
-//			for (Book book : books) {
-//				System.out.println(book.toString());
-//			}
+			System.out.print("Please enter the author of book: ");
+			String author = scanner.nextLine();
+			List<BookDto> books = bookService.getBooksByAuthor(author);
+			if (books.size() == 0) {
+				System.out.printf("'%s' author's books are not in the repository.\n", author);
+				break;
+			}
+			for (BookDto book : books) {
+				System.out.println(book.toString());
+			}
 			break;
 		}
 		case "isbn": {
-//			System.out.print("Please enter the isbn of book: ");
-//			String isbn = scanner.nextLine();
-//			Book book = bookService.getBookByIsbn(isbn);
-//			if (book == null) {
-//				System.out.printf("Book with isbn '%s' are not in the repository.\n", isbn);
-//				break;
-//			}
-//			System.out.println(book.toString());
+			System.out.print("Please enter the isbn of book: ");
+			String isbn = scanner.nextLine();
+			BookDto book = bookService.getBookByIsbn(isbn);
+			if (book == null) {
+				System.out.printf("Book with isbn '%s' are not in the repository.\n", isbn);
+				break;
+			}
+			System.out.println(book.toString());
 			break;
 		}
 		case "exit": {

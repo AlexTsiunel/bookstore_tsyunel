@@ -1,5 +1,6 @@
 package com.company.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.company.dao.BookDao;
@@ -38,6 +39,26 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public boolean delete(long id) {
 		return bookDao.delete(id);
+	}
+
+	@Override
+	public BookDto getBookByIsbn(String isbn) {
+		return toDto(bookDao.getBookByIsbn(isbn));
+	}
+
+	@Override
+	public List<BookDto> getBooksByAuthor(String author) {
+		List<BookDto> dtoList = new ArrayList<>();
+		List<Book> entityList = bookDao.getBooksByAuthor(author);
+		for (Book entity : entityList) {
+			dtoList.add(toDto(entity));
+		}
+		return dtoList;
+	}
+
+	@Override
+	public int getNumberOfBooks() {
+		return bookDao.getNumberOfBooks();
 	}
 
 	private BookDto toDto(Book entity) {

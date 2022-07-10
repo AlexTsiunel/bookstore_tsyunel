@@ -14,4 +14,10 @@ public interface BookService {
 	BookDto update(BookDto book);
 
 	boolean delete(long id);
+
+	BookDto getBookByIsbn(String isbn);
+
+	List<BookDto> getBooksByAuthor(String author);
+
+	public int getNumberOfBooks();
 }

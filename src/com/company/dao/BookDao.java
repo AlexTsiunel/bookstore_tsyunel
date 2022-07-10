@@ -16,4 +16,10 @@ public interface BookDao {
 
 	boolean delete(long id);
 
+	Book getBookByIsbn(String isbn);
+
+	List<Book> getBooksByAuthor(String author);
+
+	public int getNumberOfBooks();
+
 }

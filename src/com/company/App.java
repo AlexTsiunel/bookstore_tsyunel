@@ -8,21 +8,6 @@ import com.company.dao.connection.DataSource;
 public class App {
 
 	public static void main(String[] args) {
-//		try (DataSource dataSource = new DataSource()) {
-//			BookDaoImpl bookDao = new BookDaoImpl(dataSource);
-//
-//			bookDao.getAll().forEach(System.out::println);
-//			System.out.println("------------------------");
-//			System.out.println(bookDao.getNumberOfBooks());
-//			System.out.println("------------------------");
-//			bookDao.getBooksByAuthor("Taylor Jenkins Reid").forEach(System.out::println);
-//			System.out.println("------------------------");
-//			System.out.println(bookDao.getBookByIsbn("9781538732182"));
-//
-//		} catch (Exception e) {
-//			e.getStackTrace();
-//		}
-
 		try (DataSource dataSource = new DataSource()) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Please use commands:\n" //
