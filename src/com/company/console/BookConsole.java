@@ -1,6 +1,7 @@
 package com.company.console;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 import com.company.DataSource;
@@ -9,7 +10,7 @@ import com.company.dao.BookDaoImpl;
 import com.company.dao.entity.Book;
 
 public class BookConsole {
-	private final String REGEX_VALID_COMMAND = "(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
+	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
 	private DataSource dataSource;
 
 	public BookConsole(DataSource dataSource) {
@@ -17,7 +18,7 @@ public class BookConsole {
 	}
 
 	public void executeCommand(String command, Scanner scanner) {
-		BookDao bookDao = new BookDaoImpl(dataSource);
+		BookDaoImpl bookDao = new BookDaoImpl(dataSource);
 		String[] method = command.split(" ");
 		String methodName = method[0];
 		Integer methodArgument = null;
@@ -43,6 +44,34 @@ public class BookConsole {
 		}
 		case "update": {
 			update(scanner, bookDao);
+			break;
+		}
+		case "count": {
+			System.out.printf("The repository contains %d books.\n", bookDao.getNumberOfBooks());
+			break;
+		}
+		case "author": {
+			System.out.print("Please enter the author of book: ");
+			String author = scanner.nextLine();
+			List<Book> books = bookDao.getBooksByAuthor(author);
+			if (books.size() == 0) {
+				System.out.printf("'%s' author's books are not in the repository.\n", author);
+				break;
+			}
+			for (Book book : books) {
+				System.out.println(book.toString());
+			}
+			break;
+		}
+		case "isbn": {
+			System.out.print("Please enter the isbn of book: ");
+			String isbn = scanner.nextLine();
+			Book book = bookDao.getBookByIsbn(isbn);
+			if (book == null) {
+				System.out.printf("Book with isbn '%s' are not in the repository.\n", isbn);
+				break;
+			}
+			System.out.println(book.toString());
 			break;
 		}
 		case "exit": {

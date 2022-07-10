@@ -17,10 +17,12 @@ public class DataSource implements Closeable {
 
 	private void init() {
 		try {
-			connection = DriverManager.getConnection(Properties.getUrl(), Properties.getUser(),
-					Properties.getPassword());
+			ConnectionPropertiesReader connectionPropertiesReader = new ConnectionPropertiesReader();
+			connection = DriverManager.getConnection(connectionPropertiesReader.getUrl(),
+					connectionPropertiesReader.getUser(), connectionPropertiesReader.getPassword());
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			e.getStackTrace();
+//			throw new RuntimeException();
 		}
 	}
 

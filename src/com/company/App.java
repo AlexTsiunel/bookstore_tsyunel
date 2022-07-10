@@ -1,13 +1,12 @@
 package com.company;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.company.console.BookConsole;
 
 public class App {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 //		try (DataSource dataSource = new DataSource()) {
 //			BookDaoImpl bookDao = new BookDaoImpl(dataSource);
 //
@@ -31,6 +30,9 @@ public class App {
 					+ "  'delete {id}' - to remove book from repository by id;\n"//
 					+ "  'add' - to create a book in the repository;\n"//
 					+ "  'update' - to update a book in the repository;\n"//
+					+ "  'count' - get the number of books in the repository;\n"//
+					+ "  'author' - to get book from repository by author;\n"//
+					+ "  'isbn' - to get book from repository by isbn;\n"//
 					+ "  'exit' - to exit from application; ");
 			while (true) {
 				BookConsole bookConsole = new BookConsole(dataSource);
