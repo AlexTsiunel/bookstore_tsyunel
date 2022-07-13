@@ -4,86 +4,110 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Book {
-	private Long id;
-	private String title;
-	private String author;
-	private String isbn;
-	private Integer pages;
-	private BigDecimal price;
 
-	public Long getId() {
-		return id;
-	}
+    private Long id;
+    private String title;
+    private String author;
+    private String isbn;
+    private Integer pages;
+    private BigDecimal price;
+    private Cover cover;
+    private boolean deleted;
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public enum Cover {
+        SOFT, //
+        HARD, //
+        SPECIAL
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTitle(final String title) {
-		this.title = title;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setAuthor(final String author) {
-		this.author = author;
-	}
+    public void setTitle(final String title) {
+        this.title = title;
+    }
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	public void setIsbn(final String isbn) {
-		this.isbn = isbn;
-	}
+    public void setAuthor(final String author) {
+        this.author = author;
+    }
 
-	public Integer getPages() {
-		return pages;
-	}
+    public String getIsbn() {
+        return isbn;
+    }
 
-	public void setPages(final Integer pages) {
-		this.pages = pages;
-	}
+    public void setIsbn(final String isbn) {
+        this.isbn = isbn;
+    }
 
-	public BigDecimal getPrice() {
-		return price;
-	}
+    public Integer getPages() {
+        return pages;
+    }
 
-	public void setPrice(final BigDecimal price) {
-		this.price = price;
-	}
+    public void setPages(final Integer pages) {
+        this.pages = pages;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(author, id, isbn, pages, price, title);
-	}
+    public BigDecimal getPrice() {
+        return price;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Book other = (Book) obj;
-		return Objects.equals(author, other.author) && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
-				&& Objects.equals(pages, other.pages) && Objects.equals(price, other.price)
-				&& Objects.equals(title, other.title);
-	}
+    public void setPrice(final BigDecimal price) {
+        this.price = price;
+    }
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pages=" + pages
-				+ ", price=" + price + "]";
-	}
+    public Cover getCover() {
+        return cover;
+    }
+
+    public void setCover(Cover cover) {
+        this.cover = cover;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, cover, deleted, id, isbn, pages, price, title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Book other = (Book) obj;
+        return Objects.equals(author, other.author) && cover == other.cover && deleted == other.deleted
+                && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
+                && Objects.equals(pages, other.pages) && Objects.equals(price, other.price)
+                && Objects.equals(title, other.title);
+    }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pages=" + pages
+                + ", price=" + price + ", cover=" + cover + "]";
+    }
+
 }

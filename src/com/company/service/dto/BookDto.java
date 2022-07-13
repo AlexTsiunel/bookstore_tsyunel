@@ -3,6 +3,7 @@ package com.company.service.dto;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+
 public class BookDto {
 	private Long id;
 	private String title;
@@ -10,6 +11,14 @@ public class BookDto {
 	private String isbn;
 	private Integer pages;
 	private BigDecimal price;
+	private Cover cover;
+    private boolean deleted;
+
+    public enum Cover {
+        SOFT, //
+        HARD, //
+        SPECIAL
+    }
 
 	public Long getId() {
 		return id;
@@ -59,31 +68,47 @@ public class BookDto {
 		this.price = price;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(author, id, isbn, pages, price, title);
-	}
+    public Cover getCover() {
+        return cover;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		BookDto other = (BookDto) obj;
-		return Objects.equals(author, other.author) && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
-				&& Objects.equals(pages, other.pages) && Objects.equals(price, other.price)
-				&& Objects.equals(title, other.title);
-	}
+    public void setCover(Cover cover) {
+        this.cover = cover;
+    }
 
-	@Override
-	public String toString() {
-		return "BookDto [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pages=" + pages
-				+ ", price=" + price + "]";
-	}
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, cover, deleted, id, isbn, pages, price, title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BookDto other = (BookDto) obj;
+        return Objects.equals(author, other.author) && cover == other.cover && deleted == other.deleted
+                && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
+                && Objects.equals(pages, other.pages) && Objects.equals(price, other.price)
+                && Objects.equals(title, other.title);
+    }
+
+    @Override
+    public String toString() {
+        return "BookDto [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pages=" + pages
+                + ", price=" + price + ", cover=" + cover + "]";
+    }
+
+	
 }

@@ -9,7 +9,6 @@ import com.company.service.BookService;
 import com.company.service.impl.BookServiceImpl;
 
 public class App {
-
 	public static void main(String[] args) {
 		try (DataSource dataSource = new DataSource()) {
 			Scanner scanner = new Scanner(System.in);
