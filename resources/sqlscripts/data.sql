@@ -39,10 +39,10 @@ VALUES ('An Immense World: How Animal Senses Reveal the Hidden Realms Around Us'
 	('Local Gone Missing','Fiona Barton','9781984803047', 384, 25.11, (SELECT id FROM covers WHERE name = 'SOFT')),
 	('The Drowning Sea: A Maggie d''Arcy Mystery','Sarah Stewart Taylor','9781250826657', 352, 26.03, (SELECT id FROM covers WHERE name = 'SPECIAL'));
 
-INSERT INTO users (first_name, last_name, email, 'password', role_id )
+INSERT INTO users (first_name, last_name, email, password, role_id )
 VALUES ('Neena', 'Kochar','kochhar@gmail.com', 'kochhar022005', (SELECT id FROM roles WHERE name = 'ADMIN')),
 	('Lex', 'De Haan','haan@gmail.com', 'haan1986', (SELECT id FROM roles WHERE name = 'MANAGER')),
-	('Alexander', 'Hunold','hunold@gmail.com', 'hunol02051786', , (SELECT id FROM roles WHERE name = 'MANAGER')),
+	('Alexander', 'Hunold','hunold@gmail.com', 'hunol02051786', (SELECT id FROM roles WHERE name = 'MANAGER')),
 	('Bruce', 'Ernst','ernst@gmail.com', 'ernst2022', (SELECT id FROM roles WHERE name = 'USER')),
 	('David', 'Austin','austin@gmail.com', 'austin2006', (SELECT id FROM roles WHERE name = 'USER')),
 	('Valli', 'Pataballa','pataballa@gmail.com', 'pataballa071983', (SELECT id FROM roles WHERE name = 'USER')),
