@@ -1,4 +1,4 @@
-package com.company.dao.impl;
+package main.java.com.company.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.company.dao.UserDao;
-import com.company.dao.connection.DataSource;
-import com.company.dao.entity.User;
-import com.company.dao.entity.User.Role;
+import main.java.com.company.dao.UserDao;
+import main.java.com.company.dao.connection.DataSource;
+import main.java.com.company.dao.entity.User;
+import main.java.com.company.dao.entity.User.Role;
 
 public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.deleted = FALSE";

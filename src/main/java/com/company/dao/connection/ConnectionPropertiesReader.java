@@ -1,4 +1,4 @@
-package com.company.dao.connection;
+package main.java.com.company.dao.connection;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

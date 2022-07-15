@@ -1,4 +1,4 @@
-package com.company.dao.impl;
+package main.java.com.company.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.company.dao.BookDao;
-import com.company.dao.connection.DataSource;
-import com.company.dao.entity.Book;
-import com.company.dao.entity.Book.Cover;
+import main.java.com.company.dao.BookDao;
+import main.java.com.company.dao.connection.DataSource;
+import main.java.com.company.dao.entity.Book;
+import main.java.com.company.dao.entity.Book.Cover;
 
 public class BookDaoImpl implements BookDao {
     private static final String SELECT_ALL = "SELECT b.id , b.title , b.author , b.isbn, b.pages , b.price, c.name AS cover, b.deleted FROM books b JOIN covers c ON b.cover_id = c.id WHERE b.deleted = FALSE";

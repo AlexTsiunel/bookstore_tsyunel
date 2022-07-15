@@ -1,12 +1,12 @@
-package com.company.service.impl;
+package main.java.com.company.service.impl;
 
 import java.util.List;
 
-import com.company.dao.UserDao;
-import com.company.dao.entity.User;
-import com.company.service.UserService;
-import com.company.service.dto.UserDto;
-import com.company.service.dto.UserDto.Role;
+import main.java.com.company.dao.UserDao;
+import main.java.com.company.dao.entity.User;
+import main.java.com.company.service.UserService;
+import main.java.com.company.service.dto.UserDto;
+import main.java.com.company.service.dto.UserDto.Role;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;

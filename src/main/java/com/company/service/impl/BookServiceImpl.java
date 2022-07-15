@@ -1,12 +1,12 @@
-package com.company.service.impl;
+package main.java.com.company.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.company.dao.BookDao;
-import com.company.dao.entity.Book;
-import com.company.service.BookService;
-import com.company.service.dto.BookDto;
+import main.java.com.company.dao.BookDao;
+import main.java.com.company.dao.entity.Book;
+import main.java.com.company.service.BookService;
+import main.java.com.company.service.dto.BookDto;
 
 public class BookServiceImpl implements BookService {
     private final BookDao bookDao;

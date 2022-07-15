@@ -1,8 +1,8 @@
-package com.company.service;
+package main.java.com.company.service;
 
 import java.util.List;
 
-import com.company.service.dto.BookDto;
+import main.java.com.company.service.dto.BookDto;
 
 public interface BookService {
 	BookDto getById(long id);

@@ -1,8 +1,8 @@
-package com.company.service.dto;
+package main.java.com.company.dao.entity;
 
 import java.util.Objects;
 
-public class UserDto {
+public class User {
     private Long id;
     private String firstName;
     private String lastName;
@@ -57,7 +57,7 @@ public class UserDto {
         this.password = password;
     }
 
-    public Role getRoler() {
+    public Role getRole() {
         return role;
     }
 
@@ -86,7 +86,7 @@ public class UserDto {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserDto other = (UserDto) obj;
+        User other = (User) obj;
         return role == other.role && deleted == other.deleted && Objects.equals(email, other.email)
                 && Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
                 && Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password);
