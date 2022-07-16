@@ -7,6 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.company.dao.UserDao;
 import com.company.dao.connection.DataSource;
 import com.company.dao.entity.User;
@@ -21,6 +25,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_BY_EMAIL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ? AND u.deleted = FALSE";
 
     private final DataSource dataSource;
+    private static Logger logger = LogManager.getLogger();
 
     public UserDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -28,6 +33,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(long id) {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_ID);
             statement.setLong(1, id);
@@ -36,13 +42,14 @@ public class UserDaoImpl implements UserDao {
                 return getUser(result);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return null;
     }
 
     @Override
     public List<User> getAll() {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             List<User> list = new ArrayList<>();
             Statement statement = dataSource.getConnection().createStatement();
@@ -52,13 +59,14 @@ public class UserDaoImpl implements UserDao {
             }
             return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return null;
     }
 
     @Override
     public User create(User user) {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(INSERT,
                     Statement.RETURN_GENERATED_KEYS);
@@ -75,13 +83,14 @@ public class UserDaoImpl implements UserDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return null;
     }
 
     @Override
     public User update(User user) {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(UPDATE);
             statement.setString(1, user.getFirstName());
@@ -95,13 +104,14 @@ public class UserDaoImpl implements UserDao {
             return getById(user.getId());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return null;
     }
 
     @Override
     public boolean delete(long id) {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(DELETE);
             statement.setLong(1, id);
@@ -109,13 +119,14 @@ public class UserDaoImpl implements UserDao {
             return rowsDeleted == 1;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return false;
     }
 
     @Override
     public User getUserByEmail(String email) {
+    	logger.log(Level.DEBUG, "Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_EMAIL);
             statement.setString(1, email);
@@ -124,7 +135,7 @@ public class UserDaoImpl implements UserDao {
                 return getUser(result);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
         }
         return null;
     }

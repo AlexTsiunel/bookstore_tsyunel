@@ -7,6 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.company.dao.BookDao;
 import com.company.dao.connection.DataSource;
 import com.company.dao.entity.Book;
@@ -23,6 +27,7 @@ public class BookDaoImpl implements BookDao {
     private static final String SELECT_COUNT = "SELECT COUNT(*) FROM books b WHERE b.deleted = FALSE";
 
     private final DataSource dataSource;
+    private static Logger logger = LogManager.getLogger();
 
     public BookDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -30,6 +35,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getById(long id) {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_ID);
             statement.setLong(1, id);
@@ -38,13 +44,14 @@ public class BookDaoImpl implements BookDao {
                 return getBook(result);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
     @Override
     public List<Book> getAll() {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         try {
             List<Book> list = new ArrayList<>();
             Statement statement = dataSource.getConnection().createStatement();
@@ -54,13 +61,14 @@ public class BookDaoImpl implements BookDao {
             }
             return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
     @Override
     public Book create(Book book) {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(INSERT,
                     Statement.RETURN_GENERATED_KEYS);
@@ -80,13 +88,14 @@ public class BookDaoImpl implements BookDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
     @Override
     public Book update(Book book) {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(UPDATE);
             statement.setString(1, book.getTitle());
@@ -103,30 +112,32 @@ public class BookDaoImpl implements BookDao {
             return getById(book.getId());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
   @Override
   public boolean delete(long id) {
+	  logger.log(Level.DEBUG, "Datadase query. Table books.");
       try {
           PreparedStatement statement = dataSource.getConnection().prepareStatement(DELETE);
-          
+
           statement.setLong(2, id);
-          
-          
+
+
           int rowsDeleted = statement.executeUpdate();
           return rowsDeleted == 1;
 
       } catch (SQLException e) {
-          e.printStackTrace();
+    	  logger.log(Level.ERROR, "Failed to query the database. Table books.");
       }
       return false;
   }
 
     @Override
     public Book getBookByIsbn(String isbn) {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_ISBN);
             statement.setString(1, isbn);
@@ -135,13 +146,14 @@ public class BookDaoImpl implements BookDao {
                 return getBook(result);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
     @Override
     public List<Book> getBooksByAuthor(String author) {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         List<Book> booksList = new ArrayList<>();
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_AUTHOR);
@@ -152,13 +164,14 @@ public class BookDaoImpl implements BookDao {
             }
             return booksList;
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return null;
     }
 
     @Override
     public int getNumberOfBooks() {
+    	logger.log(Level.DEBUG, "Datadase query. Table books.");
         int numberOfBooks = 0;
         try {
             Statement statement = dataSource.getConnection().createStatement();
@@ -167,7 +180,7 @@ public class BookDaoImpl implements BookDao {
                 return result.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	logger.log(Level.ERROR, "Failed to query the database. Table books.");
         }
         return numberOfBooks;
     }

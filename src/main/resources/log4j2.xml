@@ -9,14 +9,9 @@
 		</Properties>
 	<ThresholdFilter level="trace"/>
 		<Appenders>
-		<!--
 			<Console name="Console" target="SYSTEM_OUT">
 				<PatternLayout pattern = "${pattern_console}"/>
 			</Console>
-			<File name="File1" fileName="${LOG_DIR}/text.log" bufferedIO="true">
-				<PatternLayout pattern = "${pattern_file}"/>
-			</File>
-			-->
 			<RollingFile name="FileRolling" fileName="logs/text_roll.log" append="true"
 							filePattern = "logs/${date:yyyy-MM-dd}/%d{yyyy-MM-dd_HH-mm}_%i.log">
 				<PatternLayout pattern = "${pattern_file}"/>
@@ -25,6 +20,11 @@
 				</Policies>
 				<DefaultRolloverStrategy max="5"/>
 			</RollingFile>
+			<!--
+			<File name="File1" fileName="${LOG_DIR}/text.log" bufferedIO="true">
+				<PatternLayout pattern = "${pattern_file}"/>
+			</File>
+			-->
 			<!--
 			<RollingFile name="FileZip" fileName="${LOG_DIR}/text_arch.log" append="true"
 							filePattern = 
@@ -39,10 +39,13 @@
 			-->
 		</Appenders>
 		<Loggers>
-		<!--
 			<Logger name="Log_Console" level="debug" additivity="false">
 				<Appender-ref ref ="Console"/>
 			</Logger>
+			<Logger name="Log_FileRolling" level="info" additivity="false">
+				<Appender-ref ref ="FileRolling"/>
+			</Logger>
+			<!--
 			<Logger name="Log_File" level="trace" additivity="false">
 				<Appender-ref ref ="File1"/>
 			</Logger>
@@ -50,17 +53,14 @@
                 <Appender-ref ref ="FileZip"/>
             </Logger>
 			-->
-			<Logger name="Log_FileRolling" level="trace" additivity="false">
-				<Appender-ref ref ="FileRolling"/>
-			</Logger>
 			
 			<Root level="debug">
-			<!--
 				<Appender-ref ref ="Console" level = "trace"/>
+				<Appender-ref ref ="FileRolling"/>
+			<!--
 				<Appender-ref ref ="File1"/>
 				<Appender-ref ref ="FileZip"/>
 				-->
-				<Appender-ref ref ="FileRolling"/>
 			</Root>
 		</Loggers>
 	</Configuration>
