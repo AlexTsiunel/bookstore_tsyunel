@@ -1,4 +1,4 @@
-package main.java.com.company.service.dto;
+package com.company.service.dto;
 
 import java.util.Objects;
 
@@ -80,12 +80,15 @@ public class UserDto {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) {
+			return true;
+		}
+        if (obj == null) {
+			return false;
+		}
+        if (getClass() != obj.getClass()) {
+			return false;
+		}
         UserDto other = (UserDto) obj;
         return role == other.role && deleted == other.deleted && Objects.equals(email, other.email)
                 && Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)

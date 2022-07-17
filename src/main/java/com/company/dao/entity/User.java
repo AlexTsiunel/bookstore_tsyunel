@@ -1,4 +1,4 @@
-package main.java.com.company.dao.entity;
+package com.company.dao.entity;
 
 import java.util.Objects;
 
@@ -80,12 +80,15 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) {
+			return true;
+		}
+        if (obj == null) {
+			return false;
+		}
+        if (getClass() != obj.getClass()) {
+			return false;
+		}
         User other = (User) obj;
         return role == other.role && deleted == other.deleted && Objects.equals(email, other.email)
                 && Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)

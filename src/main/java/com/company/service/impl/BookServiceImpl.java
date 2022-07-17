@@ -1,15 +1,21 @@
-package main.java.com.company.service.impl;
+package com.company.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.company.dao.BookDao;
-import main.java.com.company.dao.entity.Book;
-import main.java.com.company.service.BookService;
-import main.java.com.company.service.dto.BookDto;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.company.dao.BookDao;
+import com.company.dao.entity.Book;
+import com.company.service.BookService;
+import com.company.service.dto.BookDto;
+
 
 public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
+    private static Logger logger = LogManager.getLogger();
 
     public BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
@@ -17,19 +23,23 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getById(long id) {
+    	logger.log(Level.DEBUG, "Method call: BookService.getById.");
         Book book = bookDao.getById(id);
         return toDto(book);
     }
 
     @Override
     public List<BookDto> getAll() {
+    	logger.log(Level.DEBUG, "Method call: BookService.getAll.");
         return bookDao.getAll().stream().map(this::toDto).toList();
     }
 
     @Override
     public BookDto create(BookDto dto) {
+    	logger.log(Level.DEBUG, "Method call: BookService.create.");
         Book existing = bookDao.getBookByIsbn(dto.getIsbn());
         if (existing != null) {
+        	logger.log(Level.ERROR, "Failed to get book by isbn.");
             throw new RuntimeException();
         }
         return toDto(bookDao.create(toEntity(dto)));
@@ -37,8 +47,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto update(BookDto dto) {
+    	logger.log(Level.DEBUG, "Method call: BookService.update.");
         Book existing = bookDao.getBookByIsbn(dto.getIsbn());
         if (existing != null && existing.getId() != dto.getId()) {
+        	logger.log(Level.ERROR, "Failed to update book.");
             throw new RuntimeException();
         }
         return toDto(bookDao.update(toEntity(dto)));
@@ -46,16 +58,19 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean delete(long id) {
+    	logger.log(Level.DEBUG, "Method call: BookService.delete.");
         return bookDao.delete(id);
     }
 
     @Override
     public BookDto getBookByIsbn(String isbn) {
+    	logger.log(Level.DEBUG, "Method call: BookService.getBookByIsbn.");
         return toDto(bookDao.getBookByIsbn(isbn));
     }
 
     @Override
     public List<BookDto> getBooksByAuthor(String author) {
+    	logger.log(Level.DEBUG, "Method call: BookService.getBooksByAuthor.");
         List<BookDto> dtoList = new ArrayList<>();
         List<Book> entityList = bookDao.getBooksByAuthor(author);
         for (Book entity : entityList) {
@@ -66,6 +81,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public int getNumberOfBooks() {
+    	logger.log(Level.DEBUG, "Method call: BookService.getNumberOfBooks.");
         return bookDao.getNumberOfBooks();
     }
 

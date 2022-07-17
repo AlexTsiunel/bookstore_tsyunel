@@ -1,11 +1,11 @@
-package main.java.com.company.controller;
+package com.company.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
-import main.java.com.company.service.BookService;
-import main.java.com.company.service.dto.BookDto;
+import com.company.service.BookService;
+import com.company.service.dto.BookDto;
 
 public class BookController {
 	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";

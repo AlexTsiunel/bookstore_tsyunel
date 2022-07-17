@@ -1,8 +1,8 @@
-package main.java.com.company.service;
+package com.company.service;
 
 import java.util.List;
 
-import main.java.com.company.service.dto.UserDto;
+import com.company.service.dto.UserDto;
 
 public interface UserService {
 	UserDto getById(long id);

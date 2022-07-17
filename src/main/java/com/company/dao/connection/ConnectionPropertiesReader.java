@@ -1,14 +1,19 @@
-package main.java.com.company.dao.connection;
+package com.company.dao.connection;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ConnectionPropertiesReader {
 	private final String url;
 	private final String password;
 	private final String user;
 	private static final String propertiesFile = "resources/aplication.properties";
+	private static Logger logger = LogManager.getLogger();
 
 	public ConnectionPropertiesReader() {
 		Properties properties = new Properties();
@@ -18,6 +23,7 @@ public class ConnectionPropertiesReader {
 			password = properties.getProperty("password");
 			user = properties.getProperty("user");
 		} catch (Exception e) {
+			logger.log(Level.ERROR, "Failed to reade the properties file.");
 			throw new RuntimeException();
 		}
 	}

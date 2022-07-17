@@ -1,4 +1,4 @@
-package main.java.com.company.dao.entity;
+package com.company.dao.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -91,12 +91,15 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) {
+			return true;
+		}
+        if (obj == null) {
+			return false;
+		}
+        if (getClass() != obj.getClass()) {
+			return false;
+		}
         Book other = (Book) obj;
         return Objects.equals(author, other.author) && cover == other.cover && deleted == other.deleted
                 && Objects.equals(id, other.id) && Objects.equals(isbn, other.isbn)
