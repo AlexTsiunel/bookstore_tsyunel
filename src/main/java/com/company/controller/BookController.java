@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.company.service.BookService;
 import com.company.service.dto.BookDto;
+import com.company.service.dto.BookDto.Cover;
 
 public class BookController {
 	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
@@ -20,7 +21,7 @@ public class BookController {
 				+ "  'update' - to update a book in the repository;\n"//
 				+ "  'count' - get the number of books in the repository;\n"//
 				+ "  'author' - to get book from repository by author;\n"//
-				+ "  'isbn' - to get book from repository by i;\n"//
+				+ "  'isbn' - to get book from repository by isbn;\n"//
 				+ "  'exit' - to exit from application; ");
 	}
 
@@ -133,6 +134,13 @@ public class BookController {
 		BigDecimal price = BigDecimal.valueOf(scanner.nextDouble());
 		book.setPrice(price);
 
+		System.out.print("Please enter a cover of the book /n (0 - 'Soft cover', 1 - 'Hard cover', 2 - 'Cpetial cover' : ");
+		// isValidValue();!!!!
+		Integer coverInt = scanner.nextInt();
+		Cover[] covers = Cover.values();
+		Cover cover = covers[coverInt];
+		book.setCover(cover);
+
 		bookService.create(book);
 	}
 
@@ -179,6 +187,16 @@ public class BookController {
 			// isValidValue();!!!!
 			BigDecimal price = BigDecimal.valueOf(scanner.nextDouble());
 			bookUpdate.setPrice(price);
+		}
+
+		System.out.print("Update a caver of the book? Press key 'y' to update or another key to not update:  ");
+		if (isUpdate(scanner)) {
+			System.out.print("Please enter a caver of the book /n (0 - 'Soft cover', 1 - 'Hard cover', 2 - 'Cpetial cover' : ");
+			// isValidValue();!!!!
+			Integer coverInt = scanner.nextInt();
+			Cover[] covers = Cover.values();
+			Cover cover = covers[coverInt];
+			bookUpdate.setCover(cover);
 		}
 
 		bookService.update(bookUpdate);

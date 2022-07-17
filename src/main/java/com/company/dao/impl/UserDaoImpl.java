@@ -19,7 +19,7 @@ import com.company.dao.entity.User.Role;
 public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.deleted = FALSE";
     private static final String SELECT_BY_ID = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.id = ? AND u.deleted = FALSE";
-    private static final String INSERT = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, (SELECT id FROM roles WHERE name = ?))";
     private static final String UPDATE = "UPDATE users SET first_name = ?, last_name = ? , email = ?, password = ?, role = ? WHERE  user_id = ? AND u.deleted = FALSE";
     private static final String DELETE = "UPDATE users SET u.deleted = TRUE WHERE  user_id = ? AND u.deleted = FALSE";
     private static final String SELECT_BY_EMAIL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ? AND u.deleted = FALSE";
