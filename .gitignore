@@ -28,3 +28,7 @@ target/
 .project
 .classpath
 .settings/
+
+# IDEA Java Development Tools
+/.idea/
+*.iml
