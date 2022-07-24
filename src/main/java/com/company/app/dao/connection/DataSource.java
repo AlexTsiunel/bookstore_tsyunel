@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 public class DataSource implements Closeable {
 	private Connection connection;
-	private static Logger logger = LogManager.getLogger();
+	private static Logger logger = LogManager.getLogger(DataSource.class);
 
 	public Connection getConnection() {
 		if (connection == null) {
@@ -25,9 +25,9 @@ public class DataSource implements Closeable {
 			ConnectionPropertiesReader connectionPropertiesReader = new ConnectionPropertiesReader();
 			connection = DriverManager.getConnection(connectionPropertiesReader.getUrl(),
 					connectionPropertiesReader.getUser(), connectionPropertiesReader.getPassword());
-			logger.log(Level.INFO, "Datadase connection.");
+			logger.info("Datadase connection.");
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, "Failed to connect to database.");
+			logger.error("Failed to connect to database.", e);
 		}
 	}
 
@@ -37,7 +37,7 @@ public class DataSource implements Closeable {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				logger.log(Level.ERROR, "Failed to closed connect to database.");
+				logger.error("Failed to closed connect to database.", e);
 			}
 		}
 	}

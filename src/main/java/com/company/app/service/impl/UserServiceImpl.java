@@ -2,7 +2,6 @@ package com.company.app.service.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +12,7 @@ import com.company.app.service.dto.UserDto;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
-    private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -21,37 +20,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(long id) {
-        logger.log(Level.DEBUG, "Method call: UserService.getById.");
+        logger.debug("Method call: UserService.getById.");
         return toDto(userDao.getById(id));
     }
 
     @Override
     public List<UserDto> getAll() {
-        logger.log(Level.DEBUG, "Method call: UserService.getAll.");
+        logger.debug("Method call: UserService.getAll.");
         return userDao.getAll().stream().map(this::toDto).toList();
     }
 
     @Override
     public UserDto create(UserDto dto) {
-        logger.log(Level.DEBUG, "Method call: UserService.create.");
+        logger.debug("Method call: UserService.create.");
         return toDto(userDao.create(toEntity(dto)));
     }
 
     @Override
     public UserDto update(UserDto dto) {
-        logger.log(Level.DEBUG, "Method call: UserService.update.");
+        logger.debug("Method call: UserService.update.");
         return toDto(userDao.update(toEntity(dto)));
     }
 
     @Override
     public boolean delete(long id) {
-        logger.log(Level.DEBUG, "Method call: UserService.delete.");
+        logger.debug("Method call: UserService.delete.");
         return userDao.delete(id);
     }
 
     @Override
     public UserDto getUserByEmail(String email) {
-        logger.log(Level.DEBUG, "Method call: UserService.getUserByEmail.");
+        logger.debug("Method call: UserService.getUserByEmail.");
         return toDto(userDao.getUserByEmail(email));
     }
 
