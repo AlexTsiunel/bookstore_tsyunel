@@ -1,4 +1,4 @@
-package com.company.dao.entity;
+package com.company.app.dao.entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;

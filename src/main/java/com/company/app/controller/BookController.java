@@ -1,12 +1,13 @@
-package com.company.controller;
+package com.company.app.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
-import com.company.service.BookService;
-import com.company.service.dto.BookDto;
-import com.company.service.dto.BookDto.Cover;
+import com.company.app.service.BookService;
+import com.company.app.service.dto.BookDto;
+
+
 
 public class BookController {
 	private final String REGEX_VALID_COMMAND = "(isbn)|(author)|(count)|(update)|(add)|(exit)|(all)|(get[\\s][1-9][\\d]*)|(delete[\\s][1-9][\\d]*)";
@@ -137,8 +138,8 @@ public class BookController {
 		System.out.print("Please enter a cover of the book /n (0 - 'Soft cover', 1 - 'Hard cover', 2 - 'Cpetial cover' : ");
 		// isValidValue();!!!!
 		Integer coverInt = scanner.nextInt();
-		Cover[] covers = Cover.values();
-		Cover cover = covers[coverInt];
+		BookDto.Cover[] covers = BookDto.Cover.values();
+		BookDto.Cover cover = covers[coverInt];
 		book.setCover(cover);
 
 		bookService.create(book);
@@ -194,8 +195,8 @@ public class BookController {
 			System.out.print("Please enter a caver of the book /n (0 - 'Soft cover', 1 - 'Hard cover', 2 - 'Cpetial cover' : ");
 			// isValidValue();!!!!
 			Integer coverInt = scanner.nextInt();
-			Cover[] covers = Cover.values();
-			Cover cover = covers[coverInt];
+			BookDto.Cover[] covers = BookDto.Cover.values();
+			BookDto.Cover cover = covers[coverInt];
 			bookUpdate.setCover(cover);
 		}
 

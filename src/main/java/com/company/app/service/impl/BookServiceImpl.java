@@ -1,4 +1,4 @@
-package com.company.service.impl;
+package com.company.app.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,12 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.company.dao.BookDao;
-import com.company.dao.entity.Book;
-import com.company.service.BookService;
-import com.company.service.dto.BookDto;
+import com.company.app.dao.BookDao;
+import com.company.app.dao.entity.Book;
+import com.company.app.service.BookService;
+import com.company.app.service.dto.BookDto;
+
+
 
 
 public class BookServiceImpl implements BookService {
@@ -86,6 +88,9 @@ public class BookServiceImpl implements BookService {
     }
 
     private BookDto toDto(Book entity) {
+        if(entity == null) {
+            return null;
+        }
         BookDto dto = new BookDto();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
@@ -98,6 +103,9 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book toEntity(BookDto dto) {
+        if(dto == null) {
+            return null;
+        }
         Book entity = new Book();
         entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());

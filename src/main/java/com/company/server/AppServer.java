@@ -1,6 +1,4 @@
-package com.company;
-
-import com.company.simpleserver.WebServer;
+package com.company.server;
 
 public class AppServer {
     public static void main(String[] args) {

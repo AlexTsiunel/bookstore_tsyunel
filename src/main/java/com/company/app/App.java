@@ -1,13 +1,16 @@
-package com.company;
+package com.company.app;
 
 import java.util.Scanner;
 
-import com.company.controller.BookController;
-import com.company.dao.connection.DataSource;
-import com.company.dao.impl.BookDaoImpl;
-import com.company.service.BookService;
-import com.company.service.impl.BookServiceImpl;
+import com.company.app.controller.BookController;
+import com.company.app.dao.connection.DataSource;
+import com.company.app.dao.impl.BookDaoImpl;
+import com.company.app.service.BookService;
+import com.company.app.service.impl.BookServiceImpl;
 
+
+//The App class launches an application without a server (FOR APP TESTING)
+//Use the class to start the server com.company.server.AppServer
 public class App {
 	public static void main(String[] args) {
 		try (DataSource dataSource = new DataSource()) {

@@ -1,8 +1,10 @@
-package com.company.dao;
+package com.company.app.dao;
 
 import java.util.List;
 
-import com.company.dao.entity.User;
+import com.company.app.dao.entity.User;
+
+
 
 public interface UserDao {
 	User getById(long id);

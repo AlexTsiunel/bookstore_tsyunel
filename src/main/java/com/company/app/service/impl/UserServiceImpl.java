@@ -1,4 +1,4 @@
-package com.company.service.impl;
+package com.company.app.service.impl;
 
 import java.util.List;
 
@@ -6,11 +6,10 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.company.dao.UserDao;
-import com.company.dao.entity.User;
-import com.company.service.UserService;
-import com.company.service.dto.UserDto;
-
+import com.company.app.dao.UserDao;
+import com.company.app.dao.entity.User;
+import com.company.app.service.UserService;
+import com.company.app.service.dto.UserDto;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
@@ -22,41 +21,44 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(long id) {
-    	logger.log(Level.DEBUG, "Method call: UserService.getById.");
+        logger.log(Level.DEBUG, "Method call: UserService.getById.");
         return toDto(userDao.getById(id));
     }
 
     @Override
     public List<UserDto> getAll() {
-    	logger.log(Level.DEBUG, "Method call: UserService.getAll.");
+        logger.log(Level.DEBUG, "Method call: UserService.getAll.");
         return userDao.getAll().stream().map(this::toDto).toList();
     }
 
     @Override
     public UserDto create(UserDto dto) {
-    	logger.log(Level.DEBUG, "Method call: UserService.create.");
+        logger.log(Level.DEBUG, "Method call: UserService.create.");
         return toDto(userDao.create(toEntity(dto)));
     }
 
     @Override
     public UserDto update(UserDto dto) {
-    	logger.log(Level.DEBUG, "Method call: UserService.update.");
+        logger.log(Level.DEBUG, "Method call: UserService.update.");
         return toDto(userDao.update(toEntity(dto)));
     }
 
     @Override
     public boolean delete(long id) {
-    	logger.log(Level.DEBUG, "Method call: UserService.delete.");
+        logger.log(Level.DEBUG, "Method call: UserService.delete.");
         return userDao.delete(id);
     }
 
     @Override
     public UserDto getUserByEmail(String email) {
-    	logger.log(Level.DEBUG, "Method call: UserService.getUserByEmail.");
+        logger.log(Level.DEBUG, "Method call: UserService.getUserByEmail.");
         return toDto(userDao.getUserByEmail(email));
     }
 
     private User toEntity(UserDto dto) {
+        if (dto == null) {
+            return null;
+        }
         User entity = new User();
         entity.setId(dto.getId());
         entity.setFirstName(dto.getFirstName());
@@ -68,6 +70,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDto toDto(User entity) {
+        if (entity == null) {
+            return null;
+        }
         UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());

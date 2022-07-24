@@ -1,4 +1,4 @@
-package com.company.dao.entity;
+package com.company.app.dao.entity;
 
 import java.util.Objects;
 

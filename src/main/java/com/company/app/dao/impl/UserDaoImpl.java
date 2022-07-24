@@ -1,4 +1,4 @@
-package com.company.dao.impl;
+package com.company.app.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,25 +7,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.company.dao.UserDao;
-import com.company.dao.connection.DataSource;
-import com.company.dao.entity.User;
-import com.company.dao.entity.User.Role;
+import com.company.app.dao.UserDao;
+import com.company.app.dao.connection.DataSource;
+import com.company.app.dao.entity.User;
+
+
 
 public class UserDaoImpl implements UserDao {
-    private static final String SELECT_ALL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.deleted = FALSE";
-    private static final String SELECT_BY_ID = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.id = ? AND u.deleted = FALSE";
+    private static final String SELECT_ALL = "SELECT u.id , u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.deleted = FALSE";
+    private static final String SELECT_BY_ID = "SELECT u.id , u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.id = ? AND u.deleted = FALSE";
     private static final String INSERT = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, (SELECT id FROM roles WHERE name = ?))";
     private static final String UPDATE = "UPDATE users SET first_name = ?, last_name = ? , email = ?, password = ?, role = ? WHERE  user_id = ? AND u.deleted = FALSE";
     private static final String DELETE = "UPDATE users SET u.deleted = TRUE WHERE  user_id = ? AND u.deleted = FALSE";
-    private static final String SELECT_BY_EMAIL = "SELECT u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ? AND u.deleted = FALSE";
+    private static final String SELECT_BY_EMAIL = "SELECT u.id , u.first_name , u.last_name , u.email , u.password, r.name AS role, u.deleted FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ? AND u.deleted = FALSE";
 
     private final DataSource dataSource;
-    private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     public UserDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(long id) {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_ID);
             statement.setLong(1, id);
@@ -42,14 +42,14 @@ public class UserDaoImpl implements UserDao {
                 return getUser(result);
             }
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.", e);
         }
         return null;
     }
 
     @Override
     public List<User> getAll() {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             List<User> list = new ArrayList<>();
             Statement statement = dataSource.getConnection().createStatement();
@@ -59,14 +59,14 @@ public class UserDaoImpl implements UserDao {
             }
             return list;
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.");
         }
         return null;
     }
 
     @Override
     public User create(User user) {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(INSERT,
                     Statement.RETURN_GENERATED_KEYS);
@@ -83,14 +83,14 @@ public class UserDaoImpl implements UserDao {
             }
 
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.", e);
         }
         return null;
     }
 
     @Override
     public User update(User user) {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(UPDATE);
             statement.setString(1, user.getFirstName());
@@ -104,14 +104,14 @@ public class UserDaoImpl implements UserDao {
             return getById(user.getId());
 
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.", e);
         }
         return null;
     }
 
     @Override
     public boolean delete(long id) {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(DELETE);
             statement.setLong(1, id);
@@ -119,14 +119,14 @@ public class UserDaoImpl implements UserDao {
             return rowsDeleted == 1;
 
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.",e);
         }
         return false;
     }
 
     @Override
     public User getUserByEmail(String email) {
-    	logger.log(Level.DEBUG, "Datadase query. Table users.");
+    	logger.debug("Datadase query. Table users.");
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(SELECT_BY_EMAIL);
             statement.setString(1, email);
@@ -135,7 +135,7 @@ public class UserDaoImpl implements UserDao {
                 return getUser(result);
             }
         } catch (SQLException e) {
-        	logger.log(Level.ERROR, "Failed to query the database. Table users.");
+        	logger.error("Failed to query the database. Table users.", e);
         }
         return null;
     }
@@ -147,7 +147,7 @@ public class UserDaoImpl implements UserDao {
         user.setLastName(result.getString("last_name"));
         user.setEmail(result.getString("email"));
         user.setPassword(result.getString("password"));
-        user.setRole(Role.valueOf(result.getString("role")));
+        user.setRole(User.Role.valueOf(result.getString("role")));
         user.setDeleted(result.getBoolean("deleted"));
 
         return user;

@@ -1,21 +1,22 @@
-package com.company.simpleserver;
+package com.company.server;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequest {
     TypeRequest typeRequest;
     private String URL;
-    private List<String> parameters;
+    private Map<String, String> parameters;
     private String httpVersion;
 
-
-
     enum TypeRequest {
-        GET,
-        POST,
-        PUT,
-        DELETE
+        GET, POST, PUT, DELETE
+    }
+    
+
+    public HttpRequest() {
+        super();
+        this.parameters = new HashMap<>();
     }
 
     public TypeRequest getTypeRequest() {
@@ -34,13 +35,14 @@ public class HttpRequest {
         this.URL = URL;
     }
 
-    public List<String> getParameters() {
+    public Map<String, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<String> parameters) {
+    public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
+
     public String getHttpVersion() {
         return httpVersion;
     }
@@ -48,5 +50,4 @@ public class HttpRequest {
     public void setHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
     }
-
 }
