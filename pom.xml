@@ -7,6 +7,7 @@
 	<groupId>com.company</groupId>
 	<artifactId>bookstore_tsyunel</artifactId>
 	<version>1.0</version>
+	<packaging>war</packaging>
 	
 	<properties>
 	<maven.compiler.source>17</maven.compiler.source>
@@ -36,6 +37,34 @@
 		    <version>4.13.2</version>
 		    <scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>jakarta.servlet</groupId>
+		    <artifactId>jakarta.servlet-api</artifactId>
+		    <version>5.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.servlet.jsp</groupId>
+		    <artifactId>jakarta.servlet.jsp-api</artifactId>
+		    <version>3.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <version>3.3.2</version>
+			    <configuration>
+			    <warName>bookstore</warName>
+          			<!--<outputDirectory>${env.TOMCAT_HOME}\webapps</outputDirectory>-->
+          			<outputDirectory>C:\Program Files\Tomcat\apache-tomcat-10.0.22\webapps</outputDirectory>
+    			</configuration>
+			</plugin>
+		
+		</plugins>
+	</build>	
 
 </project>
