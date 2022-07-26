@@ -22,7 +22,8 @@ public class BookController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         BookDto book = bookService.getById(id);
-        resp.getWriter().write(renderHtml(book));
+        req.setAttribute("book", book);
+        req.getRequestDispatcher("jsp/book.jsp").forward(req, resp);
     }
 
     private String renderHtml(BookDto book) {

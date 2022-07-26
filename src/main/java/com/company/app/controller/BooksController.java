@@ -22,29 +22,33 @@ public class BooksController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setStatus(200);
-        resp.getWriter().write(renderHtml());
+//        resp.setStatus(200);
+//        resp.getWriter().write(renderHtml());
+        List<BookDto> books = bookService.getAll();
+        req.setAttribute("books", books);
+        req.getRequestDispatcher("jsp/books.jsp").forward(req, resp);
+        
     }
 
-    private String renderHtml() {
-        List<BookDto> books = bookService.getAll();
-        StringBuilder response = new StringBuilder("""
-                <html>
-                    <head>
-                        <title>Books</title>
-                    </head>
-                    <body>
-                        <table>
-                            <th>Id</th><th>Title</th>
-                """);
-        for (BookDto book : books) {
-            response.append("<tr><td>")//
-                    .append(book.getId())//
-                    .append("</td><td>")//
-                    .append(book.getTitle())//
-                    .append("</td></tr>");
-        }
-        response.append("</table></body></html>");
-        return response.toString();
-    }
+//    private String renderHtml() {
+//        List<BookDto> books = bookService.getAll();
+//        StringBuilder response = new StringBuilder("""
+//                <html>
+//                    <head>
+//                        <title>Books</title>
+//                    </head>
+//                    <body>
+//                        <table>
+//                            <th>Id</th><th>Title</th>
+//                """);
+//        for (BookDto book : books) {
+//            response.append("<tr><td><a href=\"book?id=" + book.getId() + "\">")//
+//                    .append(book.getId())//
+//                    .append("</a></td><td>")//
+//                    .append(book.getTitle())//
+//                    .append("</td></tr>");
+//        }
+//        response.append("</table></body></html>");
+//        return response.toString();
+//    }
 }
