@@ -57,7 +57,7 @@ public class UserDto {
         this.password = password;
     }
 
-    public Role getRoler() {
+    public Role getRole() {
         return role;
     }
 

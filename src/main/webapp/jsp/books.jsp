@@ -15,9 +15,10 @@
 			<tr>
 				<td>${counter.count}</td>
 				<td><a href="book?id=${book.id}">${book.id}</a></td>
-				<td><a href="book?id=${book.id}">${book.title}</a>a></td>
+				<td><a href="book?id=${book.id}">${book.title}</a></td>
 			</tr>
 		</c:forEach>
 	</table>
+	<h3><a href="/">Main page</a></h3>
 </body>
 </html>

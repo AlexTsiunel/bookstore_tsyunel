@@ -11,5 +11,6 @@
     <p>${book.id}</p>
     <h3>Title</h3>
     <p>${book.title}</p>
+    <h3><a href="books">All books</a></h3>
   </body>
 </html>
