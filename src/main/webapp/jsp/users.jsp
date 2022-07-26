@@ -24,6 +24,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<h3><a href="/">Main page</a></h3>
+	<h3><a href="/bookstore">Main page</a></h3>
 </body>
 </html>
