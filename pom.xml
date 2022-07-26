@@ -65,8 +65,8 @@
 			    <version>3.3.2</version>
 			    <configuration>
 			    <warName>bookstore</warName>
-          			<!--<outputDirectory>${env.TOMCAT_HOME}\webapps</outputDirectory>-->
-          			<outputDirectory>C:\Program Files\Tomcat\apache-tomcat-10.0.22\webapps</outputDirectory>
+          			<outputDirectory>${env.TOMCAT_HOME}\webapps</outputDirectory>
+          			<!--<outputDirectory>C:\Program Files\Tomcat\apache-tomcat-10.0.22\webapps</outputDirectory>-->
     			</configuration>
 			</plugin>
 		
