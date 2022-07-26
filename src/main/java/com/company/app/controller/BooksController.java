@@ -21,7 +21,6 @@ public class BooksController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<BookDto> books = bookService.getAll();
         req.setAttribute("books", books);
         req.getRequestDispatcher("jsp/books.jsp").forward(req, resp);
