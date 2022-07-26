@@ -22,41 +22,7 @@ public class BookController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         BookDto book = bookService.getById(id);
-        resp.getWriter().write(renderHtml(book));
-    }
-
-    private String renderHtml(BookDto book) {
-        if (book == null) {
-
-            return """
-                        <html>
-                        <head>
-                            <title>Book</title>
-                        </head>
-                        <body>
-                        Book not found!!!
-                        </body>
-                     </html>
-                    """;
-        }
-
-        return String.format("""
-                  <html>
-                  <head>
-                    <title>Book</title>
-                  </head>
-                  <body>
-                    <table>
-                      <th>Id</th>
-                      <th>Title</th>
-                      <tr>
-                        <td>%s</td>
-                        <td>%s</td>
-                      </tr>
-                    </table>
-                  </body>
-                </html>
-                                """, //
-                book.getId(), book.getTitle());
+        req.setAttribute("book", book);
+        req.getRequestDispatcher("jsp/book.jsp").forward(req, resp);
     }
 }

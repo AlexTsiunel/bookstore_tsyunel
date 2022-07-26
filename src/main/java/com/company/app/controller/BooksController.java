@@ -22,29 +22,8 @@ public class BooksController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setStatus(200);
-        resp.getWriter().write(renderHtml());
-    }
-
-    private String renderHtml() {
         List<BookDto> books = bookService.getAll();
-        StringBuilder response = new StringBuilder("""
-                <html>
-                    <head>
-                        <title>Books</title>
-                    </head>
-                    <body>
-                        <table>
-                            <th>Id</th><th>Title</th>
-                """);
-        for (BookDto book : books) {
-            response.append("<tr><td>")//
-                    .append(book.getId())//
-                    .append("</td><td>")//
-                    .append(book.getTitle())//
-                    .append("</td></tr>");
-        }
-        response.append("</table></body></html>");
-        return response.toString();
+        req.setAttribute("books", books);
+        req.getRequestDispatcher("jsp/books.jsp").forward(req, resp);
     }
 }
