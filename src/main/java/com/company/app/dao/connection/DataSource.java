@@ -9,14 +9,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DataSource implements Closeable {
+    public static DataSource INSTANCE;
     private Connection connection;
     private static Logger logger = LogManager.getLogger(DataSource.class);
+
+    private DataSource() {
+    }
 
     public Connection getConnection() {
         if (connection == null) {
             init();
         }
         return connection;
+    }
+
+    public static DataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DataSource();
+        }
+        return INSTANCE;
     }
 
     private void init() {

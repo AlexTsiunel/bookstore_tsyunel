@@ -17,6 +17,6 @@
     <p>${user.email}</p>
     <h3>Role</h3>
     <p>${user.role}</p>
-    <h3><a href="users">All users</a></h3>
+    <h3><a href="controller?command=users">All users</a></h3>
   </body>
 </html>

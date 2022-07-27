@@ -16,11 +16,11 @@
 		<th>Role</th>
 		<c:forEach items="${users}" var="user">
 			<tr>
-				<td><a href="user?id=${user.id}">${user.id}</a></td>
-				<td><a href="book?id=${user.id}">${user.firstName}</a></td>
-				<td><a href="book?id=${user.id}">${user.lastName}</a></td>
-				<td><a href="book?id=${user.id}">${user.email}</a></td>
-				<td><a href="book?id=${user.id}">${user.role}</a></td>
+				<td><a href="controller?command=user&id=${user.id}">${user.id}</a></td>
+				<td><a href="controller?command=user&id=${user.id}">${user.firstName}</a></td>
+				<td><a href="controller?command=user&id=${user.id}">${user.lastName}</a></td>
+				<td><a href="controller?command=user&id=${user.id}">${user.email}</a></td>
+				<td><a href="controller?command=user&id=${user.id}">${user.role}</a></td>
 			</tr>
 		</c:forEach>
 	</table>

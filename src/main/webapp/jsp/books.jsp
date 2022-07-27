@@ -14,8 +14,8 @@
 		<c:forEach items="${books}" var="book" varStatus="counter">
 			<tr>
 				<td>${counter.count}</td>
-				<td><a href="book?id=${book.id}">${book.id}</a></td>
-				<td><a href="book?id=${book.id}">${book.title}</a></td>
+				<td><a href="controller?command=book&id=${book.id}">${book.id}</a></td>
+				<td><a href="controller?command=book&id=${book.id}">${book.title}</a></td>
 			</tr>
 		</c:forEach>
 	</table>

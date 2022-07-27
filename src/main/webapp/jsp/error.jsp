@@ -3,14 +3,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Book</title>
+    <title>Error</title>
   </head>
   <body>
-    <h1>The Book</h1>
-    <h3>Id</h3>
-    <p>${book.id}</p>
-    <h3>Title</h3>
-    <p>${book.title}</p>
-    <h3><a href="controller?command=books">All books</a></h3>
+    <h1>Error</h1>
+    <p>Something went wrong...</p>
   </body>
 </html>
