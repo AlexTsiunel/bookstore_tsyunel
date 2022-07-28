@@ -12,5 +12,6 @@
     <h3>Title</h3>
     <p>${book.title}</p>
     <h3><a href="controller?command=books">All books</a></h3>
+    <!--  <h3><a href="?command=books">All books</a></h3>-->
   </body>
 </html>
